@@ -1,0 +1,1 @@
+docker run --name sugarcrm -e DB_HOST_NAME=172.17.0.3 -e DATABASE_NAME=sugarcrm -e DB_USER_NAME=root -e DB_PASSWORD=mypassword -e DB_TYPE=mysql -e DB_TCP_PORT=3306 -e DB_MANAGER=MysqlManager -p 2080:80 -d spantree/sugarcrm

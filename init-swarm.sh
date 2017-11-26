@@ -1,3 +1,3 @@
-# to init swarm mode
-docker swarm init  > swarm.txt
-cat swarm.txt | sed -n 5p
+# to start init swarm mode on centos 7
+docker swarm init  > /root/swarm-info.txt
+cat /root/swarm-info.txt | sed -n 5p

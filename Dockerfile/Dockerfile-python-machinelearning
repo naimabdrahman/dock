@@ -9,7 +9,7 @@ RUN yum -y install python-devel
 RUN yum -y install gcc
 RUN yum -y install tkinter
 RUN echo -e "scipy\nnumpy\nmatplotlib\npandas\nsklearn" > requirements.txt ; sleep 1
-RUN pip install subprocess32 ; sleep 1
-RUN pip install -r requirements.txt ; sleep 1
-RUN pip install six==1.10; sleep 1
-RUN pip install pyparsing==2.0.1 ; sleep 1
+RUN pip install subprocess32
+RUN pip install -r requirements.txt
+RUN pip install six==1.10
+RUN pip install pyparsing==2.0.1 

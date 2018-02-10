@@ -1,9 +1,15 @@
-RUN yum -y install python ; sleep 1
-RUN yum -y install wget ; sleep 1
-RUN yum -y install python2-devel; sleep 1
-RUN yum -y install gcc; sleep 1
-RUN wget https://bootstrap.pypa.io/get-pip.py ; sleep 1
-RUN python get-pip.py ; sleep 1
+FROM centos
+MAINTAINER someone <someone@somedomain>
+RUN yum -y install python
+RUN yum -y install wget 
+RUN yum -y install git 
+RUN wget https://bootstrap.pypa.io/get-pip.py 
+RUN python get-pip.py 
+RUN yum -y install python-devel 
+RUN yum -y install gcc
+RUN yum -y install tkinter
 RUN echo -e "scipy\nnumpy\nmatplotlib\npandas\nsklearn" > requirements.txt ; sleep 1
 RUN pip install subprocess32 ; sleep 1
 RUN pip install -r requirements.txt ; sleep 1
+RUN pip install six==1.10; sleep 1
+RUN pip install pyparsing==2.0.1 ; sleep 1

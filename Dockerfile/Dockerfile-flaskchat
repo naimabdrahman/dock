@@ -1,9 +1,6 @@
 FROM centos
 MAINTAINER someone <someone@somedomain>
-RUN yum -y update ; sleep 2
-RUN yum -y install python ; sleep 2
-RUN yum -y install wget ; sleep 2
-RUN yum -y install git ; sleep 2
+RUN yum -y install wget git ; sleep 1
 RUN wget https://bootstrap.pypa.io/get-pip.py ; sleep 2
 RUN python get-pip.py ; sleep 2
 RUN pip install flask-socketio ; sleep 2

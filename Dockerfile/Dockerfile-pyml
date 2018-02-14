@@ -1,0 +1,7 @@
+FROM centos
+MAINTAINER someone <someone@somedomain>
+RUN yum -y install python wget git
+RUN wget https://bootstrap.pypa.io/get-pip.py ;  python get-pip.py
+RUN yum -y install python-devel gcc tkinter
+RUN echo -e "subprocess32\nscipy\nnumpy\nmatplotlib\npandas\nsklearn\nsix==1.10\npyparsing==2.0.1" > requirements.txt
+RUN pip install -r requirements.txt

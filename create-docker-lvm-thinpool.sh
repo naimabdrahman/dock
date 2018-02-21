@@ -13,7 +13,7 @@ rm -rf /var/lib/docker
 # create new docker volume out of the disk & initiate
 # in this case, the new disk is /dev/sdb
 pvcreate /dev/sdb
-vgcreate docker /dev/vdb 
+vgcreate docker /dev/sdb 
 echo VG="docker" >> /etc/sysconfig/docker-storage-setup
 sleep 2
 docker-storage-setup

@@ -1,6 +1,7 @@
 FROM centos
 MAINTAINER someone <someone@somedomain>
-RUN yum -y install epel-release wget git zbar; sleep 1 ; yum -y groupinstall "Development Tools"; 
+RUN yum -y install epel-release wget git; sleep 1 ; yum -y groupinstall "Development Tools"; 
 RUN wget https://bootstrap.pypa.io/get-pip.py ; sleep 1
 RUN python get-pip.py ; sleep 1
-RUN pip install qrcode[pil] pyqrcode pypng qrtools pyzbar zbar pyzbar
+RUN pip install qrcode[pil] pyqrcode pypng qrtools pyzbar
+RUN yum -y install zbar

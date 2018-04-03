@@ -1,0 +1,7 @@
+FROM centos
+MAINTAINER someone <someone@somedomain>
+RUN yum -y install python wget git epel-release
+RUN wget https://bootstrap.pypa.io/get-pip.py
+RUN python get-pip.py
+RUN yum -y install python34.x86_64 python34-pip.noarch
+EXPOSE 80

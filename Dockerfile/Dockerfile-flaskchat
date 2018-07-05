@@ -5,6 +5,7 @@ RUN wget https://bootstrap.pypa.io/get-pip.py ; sleep 2
 RUN python get-pip.py ; sleep 2
 RUN pip install flask-socketio ; sleep 2
 RUN pip install flask-wtf ; sleep 2
+RUN pip install eventlet gevent gevent-websocket
 RUN git clone https://github.com/naimabdrahman/Flask-SocketIO-Chatroom ; sleep 2
 ENV FLASK_APP=/Flask-SocketIO-Chatroom/chat.py
 EXPOSE 80

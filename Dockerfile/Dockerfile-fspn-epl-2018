@@ -1,0 +1,10 @@
+FROM centos
+MAINTAINER someone <someone@somedomain>
+RUN yum -y install wget git ; sleep 1
+RUN wget https://bootstrap.pypa.io/get-pip.py ; sleep 1
+RUN python get-pip.py ; sleep 1
+RUN git clone https://github.com/naimabdrahman/python-nar.git ; sleep 1
+RUN pip install -r python-nar/flask-straw-poll-nar/requirements.txt ; sleep 1
+EXPOSE 5000
+CMD ["python-nar/fspn-epl-2018/flask_straw_poll/runserver.py"]
+ENTRYPOINT ["python"]

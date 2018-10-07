@@ -9,7 +9,7 @@ services:
     ports:
       - "80:80"
     volumes:
-      - "/data/goodnews/html:/var/www/html"
+      - "/mnt/data/goodnews/html:/var/www/html"
     networks:
       - webnet
     links:
@@ -21,7 +21,7 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: "mypassword"
     volumes:
-      - /data/mysql/dir:/var/lib/mysql
+      - /mnt/data/mysql:/var/lib/mysql
     restart: always
     networks:
       - webnet
@@ -40,4 +40,5 @@ services:
 
 networks:
   webnet:
+    driver: overlay
 #    driver: bridge

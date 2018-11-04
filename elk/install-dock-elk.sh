@@ -4,7 +4,7 @@
 docker pull sebp/elk
 sysctl -w vm.max_map_count=262144
 echo "vm.max_map_count=262144" >> /etc/sysctl.conf
-sleeep 2
+sleep 2
 
 
 # running elk

@@ -1,3 +1,4 @@
+yum -y install epel-release
 yum -y update
 yum remove docker docker-common docker-selinux docker-engine
 yum install -y yum-utils device-mapper-persistent-data lvm2

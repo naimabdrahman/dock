@@ -1,9 +1,10 @@
 ## install elk stack on docker on centos 7
+## tested with 4GB ram machine. elasticsearch run with adjusted vm.max_map_count
 
 # installation
 docker pull sebp/elk
-sysctl -w vm.max_map_count=262144
-echo "vm.max_map_count=262144" >> /etc/sysctl.conf
+sysctl -w vm.max_map_count=262144  # could be adjust manually. located in run-dock-elk.sh
+echo "vm.max_map_count=262144" >> /etc/sysctl.conf # # could be adjust manually. located in run-dock-elk.sh
 sleep 2
 
 

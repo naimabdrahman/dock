@@ -1,7 +1,7 @@
 ## script to run elk in docker mode
 ## prerequisite: elk in docker mode should've been installed first and memory should've been configured
 
-# adjust vm.max_map_count=262144 to start elastic search (tested with 4GB ram VM)
+# adjust vm.max_map_count=262144 to start elastic search (tested with 2 VCPU and 4GB ram VM)
 sysctl -w vm.max_map_count=262144
 
 

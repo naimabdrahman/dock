@@ -1,0 +1,2 @@
+libtool-ltdl
+yum -y install libtool-ltdl libtool-ltdl-devel

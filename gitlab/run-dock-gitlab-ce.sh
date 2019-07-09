@@ -1,6 +1,6 @@
 docker run --detach \
   --hostname gitlab.nar.test \
-  --publish 443:443 --publish 80:80 --publish 1022:22 \
+  --publish 443:443 --publish 80:80 --publish 2222:22 \
   --name gitlab \
   --restart always \
   --volume /srv/gitlab/config:/etc/gitlab \

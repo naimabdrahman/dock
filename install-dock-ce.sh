@@ -9,5 +9,9 @@ yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce
 yum -y install docker-ce
 service docker start
 chkconfig docker on
-yum -y install python-pip
-pip install docker-compose
+
+## pip3 is used instead
+#yum -y install python-pip
+yum -y install python3-pip
+#pip install docker-compose
+pip3 install docker-compose

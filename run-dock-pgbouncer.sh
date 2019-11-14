@@ -3,7 +3,7 @@
 
 
 ## func pgb01
-def func_pgb01(){
+func_pgb01(){
 docker run -dit --rm \
     -e DATABASE_URL="postgres://user:pass@postgres-host/database" \
     -p 5432:5432 \
@@ -12,7 +12,7 @@ docker run -dit --rm \
 
 
 ## func pgb02
-def func_pgb02(){
+func_pgb02(){
 docker run -dit --rm \
     -e DB_USER=user \
     -e DB_PASSWORD=pass \
@@ -25,7 +25,7 @@ docker run -dit --rm \
 
 
 ## func pgb03 ==> run on local ==> switched on
-def func_pgb03(){
+func_pgb03(){
 docker run -dit --rm \
     -e DB_USER=user \
     -e DB_PASSWORD=pass \

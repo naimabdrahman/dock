@@ -1,7 +1,7 @@
 docker run -dit --rm --name=pgb      --net=host -e DATABASE_URL="postgres://postgres:password@localhost/postgres"    edoburu/pgbouncer
 docker run -dit --rm --name=postgres --net=host -e POSTGRES_PASSWORD=password postgres
-docker run -dit --rm --name=exporter --net=host -v /root/config.yml:/etc/pgbouncer-exporter/config.yml spreaker/prometheus-pgbouncer-exporter
-
+docker run -dit --rm --name=exporter-pgb --net=host -v /root/config.yml:/etc/pgbouncer-exporter/config.yml spreaker/prometheus-pgbouncer-exporter
+docker run -dit --rm --name=exporter-pg  --net=host -e DATA_SOURCE_NAME="postgresql://postgres:password@localhost:5432/postgres?sslmode=disable" wrouesnel/postgres_exporter
 
 echo -e "config.yml as follows"
 

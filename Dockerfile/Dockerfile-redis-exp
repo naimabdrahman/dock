@@ -1,0 +1,8 @@
+## Redis exporter
+
+FROM alpine
+MAINTAINER naim <naim@somedomain>
+COPY redis_exporter-v1.3.4.linux-amd64 /redis_exporter-v1.3.4.linux-amd64  ## exporter binary is downloaded earlier and copied to the container 
+EXPOSE 9121
+CMD ["--redis.addr=node1.nar.test"] ## replace the hostname accordingly
+ENTRYPOINT ["/redis_exporter-v1.3.4.linux-amd64/redis_exporter"]

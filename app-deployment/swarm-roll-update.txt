@@ -33,3 +33,9 @@ docker service update -d --image containersol/hello-world:latest backend
 ## Another important feature for rolling updates in Swarm are the --update-parallelism and the --rollback-parallelism flags. 
 ## These flags will tell Swarm how many tasks it will update in parallel. 
 ## Tweak these flags according to your own needs but most certainly you want this number to be lower than the total amount of tasks/replicas that you're running for a specific service.
+
+
+## rollback
+docker service rollback backend
+docker service --rollback-parallelism backend
+docker service --rollback-delay backend 

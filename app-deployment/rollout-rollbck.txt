@@ -1,0 +1,4 @@
+## https://medium.com/better-programming/rollout-and-rollback-in-docker-swarm-7f19e2fe2cd1
+
+## image 
+docker pull instavote/vote 

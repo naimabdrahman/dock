@@ -1,0 +1,35 @@
+## example https://blog.container-solutions.com/rolling-updates-with-docker-swarm
+
+## image 1
+docker pull containersol/hello-world:6f045da67c52ed22f745211612fa90462c4f5e38
+
+## image 2
+docker pull containersol/hello-world:18101e645ee3d9b1de302164bb31f907a8282349 
+
+## deploy
+docker service create -d --name backend -p 8080:80 containersol/hello-world:6f045da67c52ed22f745211612fa90462c4f5e38
+
+## validate
+docker service ls
+docker service ps backend
+docker service inspect --pretty backend
+watch -n 0.5 docker ps
+
+## Releasing a new version
+docker service update -d --image containersol/hello-world:18101e645ee3d9b1de302164bb31f907a8282349 backend
+
+## validate
+docker service ls
+docker service ps backend
+docker service inspect --pretty backend
+watch -n 0.5 docker ps
+
+
+## Update Order - Releasing a new version
+docker service update -d --update-order start-first backend
+docker service update -d --image containersol/hello-world:latest
+
+## Update Parallelism
+## Another important feature for rolling updates in Swarm are the --update-parallelism and the --rollback-parallelism flags. 
+## These flags will tell Swarm how many tasks it will update in parallel. 
+## Tweak these flags according to your own needs but most certainly you want this number to be lower than the total amount of tasks/replicas that you're running for a specific service.

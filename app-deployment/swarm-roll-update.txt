@@ -27,7 +27,7 @@ watch -n 0.5 docker ps
 
 ## Update Order - Releasing a new version
 docker service update -d --update-order start-first backend
-docker service update -d --image containersol/hello-world:latest
+docker service update -d --image containersol/hello-world:latest backend
 
 ## Update Parallelism
 ## Another important feature for rolling updates in Swarm are the --update-parallelism and the --rollback-parallelism flags. 

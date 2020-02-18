@@ -1,0 +1,21 @@
+## https://docs.docker.com/engine/reference/commandline/service_rollback/
+
+docker service create --name my-service -p 8080:80 nginx:alpine
+
+docker service update --replicas=3 my-service
+
+docker service rollback my-service
+
+
+ docker service scale my-service=50
+
+
+Update a service
+docker service update --limit-cpu 2 redis
+docker service update --force --update-parallelism 1 --update-delay 30s redis
+
+docker service update --mount-add type=volume,source=other-volume,target=/somewhere-else myservice
+docker service update --mount-rm /somewhere myservice
+docker service update --publish-add published=8080,target=80 myservice
+docker service update --network-rm my-network --network-add name=my-network,alias=web1 myservice
+

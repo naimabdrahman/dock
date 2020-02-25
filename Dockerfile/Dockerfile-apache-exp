@@ -1,0 +1,9 @@
+# Apache exporter ##
+FROM alpine
+MAINTAINER naim <naim@somedomain>
+RUN wget https://github.com/Lusitaniae/apache_exporter/releases/download/v0.7.0/apache_exporter-0.7.0.linux-amd64.tar.gz
+RUN tar -zxvf apache_exporter-0.7.0.linux-amd64.tar.gz
+RUN rm -rf apache_exporter-0.7.0.linux-amd64.tar.gz
+EXPOSE 9121
+CMD ["--scrape_uri=http://test1/server-status/?auto"] ## replace the hostname accordingly
+ENTRYPOINT ["/apache_exporter-0.7.0.linux-amd64/apache_exporter"]

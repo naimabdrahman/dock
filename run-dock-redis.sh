@@ -14,6 +14,7 @@ to test :
 ==> redis-cli -h 127.0.0.1 -p 6379 ping
 ==> redis-cli --help
 ==> redis-cli -h localhost info Replication
+==> redis-cli -h localhost -p 6379 info Replication
 ==> redis-cli -h localhost set k1 v1
 ==> redis-cli -h localhost get k1
 ==> redis-cli -h localhost flushall

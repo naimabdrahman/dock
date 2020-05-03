@@ -5,3 +5,6 @@ docker service create --name swarm2 --mount type=bind,source=/mnt/data/fspn-epl-
 
 
 docker service create --name swarm3 --mount type=bind,source=/mnt/data/oc/html,target=/var/www/html --replicas=2 -p 8082:80 owncloud
+
+
+#docker service create --name swarm4  --replicas 5 --constraint node.labels.foo==bar nginx ## for placement constraints 

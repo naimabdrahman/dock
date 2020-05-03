@@ -18,7 +18,9 @@ cd ; go get github.com/ContainX/docker-volume-netshare
 cd /root/go/src/github.com/ContainX/docker-volume-netshare
 go build
 scp -rp docker-volume-netshare /usr/local/bin/
-docker-volume-netshare nfs -a 1.40
+#docker-volume-netshare nfs -a 1.40 ## to test docker-volume-netshare
+cd
+
 
 
 ## create docker-volume-netshare service

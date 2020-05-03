@@ -1,0 +1,37 @@
+## nginx with placemnet constraint
+## reference : https://success.docker.com/article/using-contraints-and-labels-to-control-the-placement-of-containers
+
+version: "3"
+services:
+  web:
+    image: nginx
+    #volumes:
+    #  - nginx.vol:/usr/share/nginx/html
+    ports:
+      - 80:80
+    deploy:
+      placement:
+        constraints: [node.role == worker]
+      replicas: 5
+      restart_policy:
+        condition: on-failure
+    networks:
+      - webnet
+
+  visualizer:
+    image: dockersamples/visualizer:stable
+    ports:
+      - "8080:8080"
+    volumes:
+      - "/var/run/docker.sock:/var/run/docker.sock"
+    deploy:
+      placement:
+        constraints: [node.role == manager]
+    networks:
+      - webnet
+
+networks:
+  webnet:
+    driver: overlay
+#    driver: bridge
+

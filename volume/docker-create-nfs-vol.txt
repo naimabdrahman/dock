@@ -1,0 +1,7 @@
+docker volume create --driver nfs --name foobar2 -o share=nfshost:/foobar2
+docker volume create --driver nfs --name foobar2 -o share=dock1:/foobar2 -o vers=3  # nfsv3
+docker volume create --driver nfs --name foobar2 -o share=dock1:/foobar2 -o addr=172.104.174.139 #advertise addr
+
+
+#docker volume create --driver nfs --name foobar3 -o share=172.104.174.139:/nfsdata/foobar3
+#docker volume create --driver nfs --name foobar4 -o share=127.0.0.1:/nfsdata/foobar4

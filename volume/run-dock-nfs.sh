@@ -13,7 +13,13 @@ mount -t nfs4 127.0.0.1:/ /mnt/temp
 
 or 
 
-docker run -dit --rm --name client --volume-driver=nfs -v 10.0.2.15:/mount alpine /bin/sh
+docker run -dit --rm --name client --volume-driver=nfs -v 10.0.2.15:/mount alpine /bin/sh ##virtualbox
+
+
+or
+
+
+docker run -dit --rm --name client --volume-driver=nfs -v 10.0.2.15:/mount alpine ## localhost
 
 
 "

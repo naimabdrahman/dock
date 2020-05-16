@@ -19,7 +19,7 @@ docker run -dit --rm --name client --volume-driver=nfs -v 10.0.2.15:/mount alpin
 or
 
 
-docker run -dit --rm --name client --volume-driver=nfs -v 10.0.2.15:/mount alpine ## localhost
+docker run -dit --rm --name client --volume-driver=nfs -v 127.0.0.1:/mount alpine ## localhost
 
 
 "

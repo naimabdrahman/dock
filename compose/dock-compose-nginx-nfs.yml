@@ -21,4 +21,4 @@ volumes:
   nginx.vol:
     driver: nfs
     driver_opts:
-      share: 10.0.2.15:/
+      share: 10.0.2.15:/ ## replace with nfs share IP

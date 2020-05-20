@@ -4,7 +4,7 @@ docker run -dit --rm --name jenkins --net=host -v jenkins:/var/jenkins_home jenk
 ## 
 echo -e "
 
-to use docker api or docker cloud with jeckins
+to use docker api or docker cloud with jenkins
 
 in docker service
     /etc/systemd/system/multi-user.target.wants/docker.service

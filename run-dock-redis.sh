@@ -24,3 +24,27 @@ to test :
 ==> redis-benchmark
 
 "
+
+
+echo -e "
+Redis cluster config below
+
+## /etc/hosts
+1.1.1.1 test1c master1
+2.2.2.2 test2c slave2
+3.3.3.3 test3c slave3
+
+## redis.conf (master)
+< bind 0.0.0.0
+< protected-mode no
+
+## redis.conf (slave)
+< bind 0.0.0.0
+< protected-mode no
+< slaveof test1c 6379
+
+## redis-sentinel.conf (all)
+< protected-mode no
+< sentinel monitor mymaster test1c 6379 2
+
+"

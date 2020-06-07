@@ -1,0 +1,46 @@
+version: "3"
+services:
+  grafana:
+    image: grafana/grafana 
+    #deploy:
+      #replicas: 1
+      #restart_policy:
+        #condition: on-failure
+    ports:
+      - "3000:3000"
+    volumes:
+      - "/var/lib/docker/volumes/grafana-varlib/_data:/var/lib/grafana"
+      - "/var/lib/docker/volumes/grafana-etc/_data:/etc/grafana"
+      - "/var/lib/docker/volumes/grafana-varlog/_data:/var/log/grafana"
+    restart: always
+    networks:
+      - webnet
+    #links:
+      #- db1:mysql
+  prometheus:
+    image: prom/prometheus
+    ports:
+      - 9090:9090
+    volumes:
+      - "/var/lib/docker/volumes/prometheus-etc/_data:/etc/prometheus"
+      - "/var/lib/docker/volumes/prometheus/_data:/prometheus"
+    restart: always
+    networks:
+      - webnet
+
+  visualizer:
+    image: dockersamples/visualizer:stable
+    ports:
+      - "8080:8080"
+    volumes:
+      - "/var/run/docker.sock:/var/run/docker.sock"
+    deploy:
+      placement:
+        constraints: [node.role == manager]
+    networks:
+      - webnet
+
+networks:
+  webnet:
+    driver: overlay
+#    driver: bridge

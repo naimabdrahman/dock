@@ -1,0 +1,23 @@
+## create docker-volume-custom-mount-point
+## ref: https://stackoverflow.com/questions/39496564/docker-volume-custom-mount-point
+
+docker volume create --driver local\
+ --opt type=none\
+ --opt device=/data/gv1/grafana-varlib\
+ --opt o=bind\
+ grafana-varlib
+
+docker volume create --driver local\
+ --opt type=none\
+ --opt device=/data/gv1/grafana-etc\
+ --opt o=bind\
+ grafana-etc
+
+docker volume create --driver local\
+ --opt type=none\
+ --opt device=/data/gv1/grafana-varlog\
+ --opt o=bind\
+ grafana-varlog
+
+
+

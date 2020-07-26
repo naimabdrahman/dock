@@ -2,3 +2,26 @@
 
 ## image 
 docker pull instavote/vote 
+
+## create service
+docker service create --name vote --replicas 4 --publish 5000:80 instavote/vote
+
+
+## Rolling update
+docker service update --image instavote/vote:indent vote 
+
+
+## Configure update sub-option
+docker service update --update-parallelism 2 --update-delay 10s vote
+
+## Rolling update again
+docker service update --image instavote/vote:movies vote
+
+
+## Check for spec  and previous spec - under docker service
+docker service inspect vote 
+
+
+
+## rollback
+docker service rollback vote

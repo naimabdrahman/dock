@@ -1,0 +1,18 @@
+FROM docker.io/python
+MAINTAINER someone <someone@somedomain>
+
+RUN pip3 install flask
+
+## APP contents - This is Flask
+RUN echo "from flask import Flask">app.py
+RUN echo "app=Flask(__name__)">>app.py
+RUN echo "\n@app.route('/')">>app.py
+RUN echo "def index():">>app.py
+RUN echo "\treturn \"This is Flask\"">>app.py
+RUN echo "\nif __name__=='__main__':" >>app.py
+RUN echo "\tapp.run(debug=True, port=80, host='0.0.0.0')">>app.py
+
+
+EXPOSE 80
+CMD ["app.py"]
+ENTRYPOINT ["python3"]

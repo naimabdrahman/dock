@@ -5,3 +5,12 @@ docker exec -it --user root $(containerName) /bin/bash
 
 monitoring docker swarm ==> https://github.com/stefanprodan/swarmprom
 
+
+
+
+
+
+## insecure registry ==> /etc/docker/daemon.json
+{
+    "insecure-registries" : [ "hostname:5000" ]
+}

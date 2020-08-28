@@ -1,0 +1,5 @@
+FROM centos
+MAINTAINER someone <someone@somedomain>
+RUN yum -y install nginx
+EXPOSE 80
+ENTRYPOINT ["/usr/sbin/nginx", "-g", "daemon off;"]

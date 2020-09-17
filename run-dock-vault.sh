@@ -15,3 +15,19 @@ export VAULT_TOKEN="myroot"
 
 
 
+## some api call for quick test ##
+
+#curl     --header "X-Vault-Token: $VAULT_TOKEN"     http://127.0.0.1:8200/v1/secret/data/hello?version=5 | jq
+
+#curl     --request POST     --data '{"key": "/ye2PeRrd/qruh9Ppu9EyUjk1vLqIflg1qqw6w9OE5E="}'     http://127.0.0.1:8200/v1/sys/unseal | jq
+
+#curl http://127.0.0.1:8200/v1/sys/init
+
+#curl     --header "X-Vault-Token: $VAULT_TOKEN"     --request POST     --data '{"type": "approle"}'     http://127.0.0.1:8200/v1/sys/auth/approle
+
+#curl \
+#    --header "X-Vault-Token: $VAULT_TOKEN" \
+#    --request POST \
+#    --data @payload.json \
+#    http://127.0.0.1:8200/v1/secret/data/hello
+

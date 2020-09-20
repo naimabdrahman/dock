@@ -14,3 +14,11 @@ monitoring docker swarm ==> https://github.com/stefanprodan/swarmprom
 {
     "insecure-registries" : [ "hostname:5000" ]
 }
+
+
+
+## docker metrics ==> /etc/docker/daemon.json
+{
+  "metrics-addr" : "127.0.0.1:9323",
+  "experimental" : true
+}

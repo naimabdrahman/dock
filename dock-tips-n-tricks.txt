@@ -2,10 +2,12 @@ to execute bash in docker
 docker exec -it --user root $(containerName) /bin/bash
 
 
+## monitoring docker swarm ==> https://github.com/stefanprodan/swarmprom
 
-monitoring docker swarm ==> https://github.com/stefanprodan/swarmprom
 
 
+## to use docker api  ==> docker.service
+ExecStart=/usr/bin/dockerd -H tcp://0.0.0.0:2375 -H unix:///var/run/docker.sock 
 
 
 

@@ -1,0 +1,60 @@
+## swarm stack to protect app/services behind nginx
+## app/services layer is not exposed - exposed is used instead of ports
+## e.g. nginx can protect services via IP like fw or handling certs  
+
+
+version: "3"
+
+services:
+
+  nginx:
+    image: nginx:latest
+    #deploy:
+      #replicas: 1
+      #restart_policy:
+        #condition: on-failure
+    ports:
+      - "80:80"
+    volumes:
+      - "/var/lib/docker/volumes/ngx-etc/_data:/etc/nginx"
+    restart: always
+    networks:
+      - webnet
+
+  grafana:
+    image: grafana/grafana
+    #deploy:
+      #replicas: 1
+      #restart_policy:
+        #condition: on-failure
+    #ports:
+      #- "3000:3000"
+    expose:
+      - "3000"
+    #volumes:
+      #- "/var/lib/docker/volumes/grafana-varlib/_data:/var/lib/grafana"
+      #- "/var/lib/docker/volumes/grafana-etc/_data:/etc/grafana"
+      #- "/var/lib/docker/volumes/grafana-varlog/_data:/var/log/grafana"
+    restart: always
+    networks:
+      - webnet
+    #links:
+      #- db1:mysql
+
+  prometheus:
+    image: prom/prometheus
+    #ports:
+      #- 9090:9090
+    expose:
+      - "9090"
+    #volumes:
+      #- "/var/lib/docker/volumes/prometheus-etc/_data:/etc/prometheus"
+      #- "/var/lib/docker/volumes/prometheus/_data:/prometheus"
+    restart: always
+    networks:
+      - webnet
+
+networks:
+  webnet:
+    driver: overlay
+#    driver: bridge

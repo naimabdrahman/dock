@@ -1,7 +1,7 @@
 ## swarm stack to protect app/services behind nginx
 ## app/services layer is not exposed - exposed is used instead of ports
 ## e.g. nginx can protect services via IP like fw or handling certs  
-
+## 'expose' is deprecated. stack works fine too if expose is not used
 
 version: "3"
 

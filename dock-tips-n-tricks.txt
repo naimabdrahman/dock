@@ -34,3 +34,5 @@ ExecStart=/usr/bin/dockerd -H tcp://0.0.0.0:2375 -H unix:///var/run/docker.sock
 
 #### rootless ####
 ===> https://medium.com/@tonistiigi/experimenting-with-rootless-docker-416c9ad8c0d6
+===> https://docs.docker.com/engine/security/rootless/
+

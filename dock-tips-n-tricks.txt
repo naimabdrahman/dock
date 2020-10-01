@@ -30,3 +30,7 @@ ExecStart=/usr/bin/dockerd -H tcp://0.0.0.0:2375 -H unix:///var/run/docker.sock
 ##### hardening #####
 ==> https://medium.com/better-programming/how-to-quickly-run-a-basic-security-audit-against-docker-secure-the-docker-daemon-cdf1d8e4cd
 ==> https://techbeacon.com/security/10-top-open-source-tools-docker-security
+
+
+#### rootless ####
+===> https://medium.com/@tonistiigi/experimenting-with-rootless-docker-416c9ad8c0d6

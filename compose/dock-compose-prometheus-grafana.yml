@@ -30,7 +30,9 @@ services:
     command:
       - '--config.file=/etc/prometheus/prometheus.yml'
       - '--storage.tsdb.path=/prometheus'
-      - '--storage.tsdb.retention=5m'
+      #- '--storage.tsdb.retention=5m'
+      - '--storage.tsdb.retention.time=5m'
+
     networks:
       - webnet
 

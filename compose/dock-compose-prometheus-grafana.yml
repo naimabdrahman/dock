@@ -12,6 +12,8 @@ services:
       - "/var/lib/docker/volumes/grafana-varlib/_data:/var/lib/grafana"
       - "/var/lib/docker/volumes/grafana-etc/_data:/etc/grafana"
       - "/var/lib/docker/volumes/grafana-varlog/_data:/var/log/grafana"
+    environment:
+      - "GF_INSTALL_PLUGINS=grafana-clock-panel,grafana-simple-json-datasource"
     restart: always
     networks:
       - webnet

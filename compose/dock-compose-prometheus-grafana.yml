@@ -27,6 +27,10 @@ services:
       - "/var/lib/docker/volumes/prometheus-etc/_data:/etc/prometheus"
       - "/var/lib/docker/volumes/prometheus/_data:/prometheus"
     restart: always
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--storage.tsdb.path=/prometheus'
+      - '--storage.tsdb.retention=5m'
     networks:
       - webnet
 

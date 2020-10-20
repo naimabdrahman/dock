@@ -38,5 +38,12 @@ ExecStart=/usr/bin/dockerd -H tcp://0.0.0.0:2375 -H unix:///var/run/docker.sock
 
 
 
+#### secret ####
+https://stackoverflow.com/questions/22651647/docker-and-securing-passwords
+https://docs.docker.com/compose/environment-variables/#/the-env-file
+
+
+
+
 ### additional rpm packages 
 ===> https://download.docker.com/linux/centos/7/x86_64/stable/Packages/

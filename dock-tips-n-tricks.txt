@@ -42,7 +42,7 @@ ExecStart=/usr/bin/dockerd -H tcp://0.0.0.0:2375 -H unix:///var/run/docker.sock
 https://stackoverflow.com/questions/22651647/docker-and-securing-passwords
 https://docs.docker.com/compose/environment-variables/#/the-env-file
 https://www.techrepublic.com/article/how-to-use-docker-env-file/
-
+https://medium.com/better-programming/using-variables-in-docker-compose-265a604c2006
 
 
 ### additional rpm packages 

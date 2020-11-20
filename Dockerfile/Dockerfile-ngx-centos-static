@@ -1,0 +1,6 @@
+FROM centos
+MAINTAINER someone <someone@somedomain>
+RUN yum -y install nginx
+RUN echo -e "this is sparta!!" > /usr/share/nginx/html/index.html
+EXPOSE 80
+ENTRYPOINT ["/usr/sbin/nginx", "-g", "daemon off;"]

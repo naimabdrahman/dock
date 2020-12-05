@@ -1,0 +1,19 @@
+FROM python
+MAINTAINER someone <someone@somedomain>
+
+RUN pip install aniso8601 click Flask Flask-RESTful itsdangerous Jinja2 MarkupSafe pytz six SQLAlchemy Werkzeug autopep8 
+RUN mkdir /plate-api
+COPY app-lalala.py /plate-api/app-lalala.py
+COPY lalala.db /plate-api/lalala.db
+COPY requirements.txt /plate-api/requirements.txt
+COPY sample_data_1.csv /plate-api/sample_data_1.csv
+
+
+WORKDIR /plate-api/
+EXPOSE 80
+CMD ["python3", "app-lalala.py"]
+
+
+
+
+

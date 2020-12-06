@@ -10,7 +10,7 @@ COPY sample_data_1.csv /plate-api/sample_data_1.csv
 
 
 WORKDIR /plate-api/
-EXPOSE 80
+EXPOSE 5000
 CMD ["python3", "app-lalala.py"]
 
 

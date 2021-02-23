@@ -11,7 +11,11 @@ service docker start
 chkconfig docker on
 
 ## pip3 is used instead
+# install pip3
 #yum -y install python-pip
 yum -y install python3-pip
+# Upgrade pip
+pip3 install --upgrade pip3
+# compose
 #pip install docker-compose
 pip3 install docker-compose

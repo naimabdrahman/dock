@@ -1,15 +1,18 @@
 ## mistio
+## ref : https://github.com/mistio/mist-ce
+
 
 ## option 1
 ## live version 
 # curl -kL  https://github.com/mistio/mist-ce/releases/download/v4.5.4/docker-compose.yml | docker-compose up -d ; docker-compose exec api sh
-
+# ./bin/adduser --admin admin@example.com
 
 
 ## option 2 
-# run this command : docker-compose up -d ; docker-compose exec api sh
-# Docker compose definition to run mist.io in production mode, so no mounted
-# code, no dev containers etc. Only this single file is required.
+# docker-compose up -d ; docker-compose exec api sh
+# ./bin/adduser --admin admin@example.com
+## Docker compose definition to run mist.io in production mode, so no mounted
+## code, no dev containers etc. Only this single file is required.
 
 version: '2.0'
 

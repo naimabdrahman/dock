@@ -1,6 +1,11 @@
 ## ref => https://docs.konghq.com/install/docker/
 
 
+## cleanup
+
+docker stop kong-database kong
+docker rm -f kong-database kong
+ 
 ## network
 docker network create kong-net
 
@@ -14,6 +19,9 @@ docker run -d --name kong-database \
                -e "POSTGRES_PASSWORD=kong" \
                postgres:9.6
 
+## break
+sleep 10
+
 ## prep db
 docker run --rm \
      --network=kong-net \
@@ -25,6 +33,8 @@ docker run --rm \
      kong:latest kong migrations bootstrap
 
 
+## break
+sleep 10
 
 
 ## start kong

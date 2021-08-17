@@ -1,6 +1,10 @@
-## install docker ce on centos 7
+## install docker ce on centos 7 & 8
 
+## dependencies
 yum -y install epel-release
+yum -y install yum-utils
+
+
 #yum -y update
 yum -y remove docker docker-common docker-selinux docker-engine
 yum install -y yum-utils device-mapper-persistent-datahttps://github.com/naimabdrahman/dock/stargazers lvm2

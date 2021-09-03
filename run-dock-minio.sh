@@ -20,3 +20,12 @@ docker run -dit \
   quay.io/minio/minio server /data --console-address ":9001"
 
 
+# minio client
+#docker run minio/mc ls play ## to test 
+docker run -dit --entrypoint=/bin/sh --name mc --rm minio/mc
+
+## minio command
+#mc alias set minio http://x.x.x.x:9000 rootuser rootpassword
+#mc ls minio
+#mc mb minio/mybucket
+#mc cp myobject.txt minio/mybucket

@@ -19,6 +19,11 @@ ExecStart=/usr/bin/dockerd -H tcp://0.0.0.0:2375 -H unix:///var/run/docker.sock
 
 
 
+## insecure registry ==> get images
+# ref ==> https://stackoverflow.com/questions/31251356/how-to-get-a-list-of-images-on-docker-registry-v2
+#curl -ikL -XGET https://X.X.X.X/v2/_catalog
+#curl -ikL -XGET https://X.X.X.X/v2/ngx/tags/list
+
 ## docker metrics ==> /etc/docker/daemon.json
 {
   "metrics-addr" : "127.0.0.1:9323",

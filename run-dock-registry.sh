@@ -12,3 +12,10 @@ docker run -dit \
   -p 443:443 \
   registry:latest
 
+
+## insecure registry ==> get images
+# ref ==> https://stackoverflow.com/questions/31251356/how-to-get-a-list-of-images-on-docker-registry-v2
+#curl -ikL -XGET https://X.X.X.X/v2/_catalog
+#curl -ikL -XGET https://X.X.X.X/v2/ngx/tags/list
+#curl -X GET -u <user>:<pass> https://myregistry:5000/v2/_catalog
+#curl -X GET -u <user>:<pass> https://myregistry:5000/v2/ubuntu/tags/list

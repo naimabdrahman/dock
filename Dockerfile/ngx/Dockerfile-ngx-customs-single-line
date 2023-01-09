@@ -1,0 +1,7 @@
+FROM nginx:latest
+
+WORKDIR /usr/app
+
+#COPY . .
+
+RUN echo "this is sparta!!" > /usr/share/nginx/html/index.html

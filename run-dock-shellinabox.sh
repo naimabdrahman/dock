@@ -22,3 +22,4 @@ docker container run -dit \
         sspreitzer/shellinabox:latest
 
 '''
+## ref ==> https://medium.com/open-devops-academy/access-via-web-ssh-inside-a-docker-container-62e8a9418e76

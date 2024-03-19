@@ -18,4 +18,10 @@ GRANT ALL PRIVILEGES ON *.* TO 'dba'@'%' IDENTIFIED BY 'password';  flush privil
 
 ALTER USER 'root'@'%' IDENTIFIED WITH mysql_native_password BY 'password';
 #reference https://stackoverflow.com/questions/49194719/authentication-plugin-caching-sha2-password-cannot-be-loaded
+
+try this: mysqladmin -u root -ppassword password newpassword
+
+GRANT ALL PRIVILEGES ON *.* TO 'dba'@'%' WITH GRANT OPTION;
+FLUSH PRIVILEGES;
+
 "

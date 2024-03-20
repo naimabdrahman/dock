@@ -5,6 +5,7 @@ docker run \
 --env="MYSQL_ROOT_PASSWORD=password" \
 --publish 127.0.0.1:3306:3306 \
 --volume=/data/mysql1/dir:/var/lib/mysql \
+--restart=unless-stopped \
 mysql
 
 
@@ -15,6 +16,7 @@ docker run \
 --env="MYSQL_ROOT_PASSWORD=password" \
 --publish 127.0.0.1:3307:3306 \
 --volume=/data/mysql2/dir:/var/lib/mysql \
+--restart=unless-stopped \
 mysql
 
 

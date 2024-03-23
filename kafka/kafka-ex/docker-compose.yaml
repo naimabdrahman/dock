@@ -1,0 +1,153 @@
+version: '3.8'
+
+services:
+  mysql1:
+    image: mysql:8.3
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_DATABASE: db1
+    networks:
+      - kafka-network
+    ports:
+      - "33061:3306"
+    volumes:
+      - mysql1-data:/var/lib/mysql
+
+  mysql2:
+    image: mysql:8.3
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_DATABASE: db2
+    networks:
+      - kafka-network
+    ports:
+      - "33062:3306"
+    volumes:
+      - mysql2-data:/var/lib/mysql
+
+  postgres:
+    image: postgres:latest
+    environment:
+      POSTGRES_DB: db2
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: password
+    ports:
+      - "5432:5432"
+    networks:
+      - kafka-network
+    volumes:
+      - ./init-db:/docker-entrypoint-initdb.d
+
+  zookeeper:
+    image: bitnami/zookeeper:latest
+    networks:
+      - kafka-network
+    environment:
+      ZOOKEEPER_CLIENT_PORT: 2181
+      ZOOKEEPER_TICK_TIME: 2000
+      ALLOW_ANONYMOUS_LOGIN: "yes"
+
+  kafka:
+    image: bitnami/kafka:latest
+    depends_on:
+      - zookeeper
+    ports:
+      - "9092:9092"
+    networks:
+      - kafka-network
+    environment:
+      KAFKA_BROKER_ID: 1
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT
+      KAFKA_LISTENERS: PLAINTEXT://0.0.0.0:9092
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:9092
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+      KAFKA_TRANSACTION_STATE_LOG_MIN_ISR: 1
+      KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: 1
+
+  schema-registry:
+    image: confluentinc/cp-schema-registry:latest
+    depends_on:
+      - zookeeper
+      - kafka
+    ports:
+      - "8081:8081"
+    networks:
+      - kafka-network
+    environment:
+      SCHEMA_REGISTRY_HOST_NAME: schema-registry
+      SCHEMA_REGISTRY_KAFKASTORE_BOOTSTRAP_SERVERS: PLAINTEXT://kafka:9092
+
+  connect:
+    # image: kc-custom:0.2
+    image: confluentinc/cp-kafka-connect:latest
+    depends_on:
+      - mysql1
+      - mysql2
+      - postgres
+      - kafka
+    ports:
+      - "8083:8083"
+    networks:
+      - kafka-network
+    environment:
+      GROUP_ID: 1
+      CONFIG_STORAGE_TOPIC: connect_configs
+      OFFSET_STORAGE_TOPIC: connect_offsets
+      STATUS_STORAGE_TOPIC: connect_statuses
+      BOOTSTRAP_SERVERS: kafka:9092
+      CONNECT_CONFIG_STORAGE_REPLICATION_FACTOR: 1
+      CONNECT_OFFSET_STORAGE_REPLICATION_FACTOR: 1
+      CONNECT_STATUS_STORAGE_REPLICATION_FACTOR: 1
+      CONNECT_KEY_CONVERTER: io.confluent.connect.avro.AvroConverter
+      CONNECT_VALUE_CONVERTER: io.confluent.connect.avro.AvroConverter
+      CONNECT_KEY_CONVERTER_SCHEMA_REGISTRY_URL: http://schema-registry:8081
+      CONNECT_VALUE_CONVERTER_SCHEMA_REGISTRY_URL: http://schema-registry:8081
+      CONNECT_INTERNAL_KEY_CONVERTER: org.apache.kafka.connect.json.JsonConverter
+      CONNECT_INTERNAL_VALUE_CONVERTER: org.apache.kafka.connect.json.JsonConverter
+      CONNECT_INTERNAL_KEY_CONVERTER_SCHEMAS_ENABLE: false
+      CONNECT_INTERNAL_VALUE_CONVERTER_SCHEMAS_ENABLE: false
+      CONNECT_KEY_CONVERTER_SCHEMAS_ENABLE: "false"
+      CONNECT_VALUE_CONVERTER_SCHEMAS_ENABLE: "false"
+      CONNECT_BOOTSTRAP_SERVERS: "kafka:9092"
+      CONNECT_GROUP_ID: "connect-cluster"
+      CONNECT_CONFIG_STORAGE_TOPIC: connect-configs
+      CONNECT_REST_ADVERTISED_HOST_NAME: "connect"
+      CONNECT_REST_PORT: 8083
+      CONNECT_OFFSET_STORAGE_TOPIC: connect-offsets
+      CONNECT_STATUS_STORAGE_TOPIC: connect-statuses
+      CONNECT_PLUGIN_PATH: "/usr/share/java,/usr/share/confluent-hub-components"
+      MYSQL_DRIVER_VERSION: "8.3.0"
+    command:
+      - /bin/bash
+      - -c
+      - |
+        echo "Installing Debezium connector..."
+        confluent-hub install --no-prompt debezium/debezium-connector-mysql:latest
+        confluent-hub install --no-prompt confluentinc/kafka-connect-jdbc:latest
+        echo "xxx"
+        cd /usr/share/confluent-hub-components/confluentinc-kafka-connect-jdbc/lib/
+        curl https://cdn.mysql.com//Downloads/Connector-J/mysql-connector-j-8.3.0.tar.gz | tar xz
+        echo "Starting Kafka Connect..."
+        /etc/confluent/docker/run
+    # volumes:
+    #   - ./mysql-connector-j-8.3.0.jar:/usr/share/java/mysql-connector-j-8.3.0.jar
+
+
+  cmak:
+    image: hlebalbau/kafka-manager:latest # Use an up-to-date CMAK image
+    ports:
+      - "9000:9000" # Expose CMAK on port 9000
+    environment:
+      ZK_HOSTS: "zookeeper:2181" # Point CMAK to your Zookeeper service
+      APPLICATION_SECRET: "random-secret" # Set a secret key for the application
+    networks:
+      - kafka-network
+
+volumes:
+  kafka-data:
+  mysql1-data:
+  mysql2-data:
+networks:
+  kafka-network:
+    driver: bridge

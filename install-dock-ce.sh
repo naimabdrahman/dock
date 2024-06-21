@@ -1,4 +1,4 @@
-## install docker ce on centos 7 & 8
+## install docker ce on centos 7 & 8 & 9
 
 ## dependencies
 yum -y install epel-release
@@ -12,7 +12,7 @@ yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce
 #yum makecache fast
 yum -y install docker-ce
 service docker start
-chkconfig docker on
+systemctl enable docker #chkconfig docker on
 
 ## pip3 is used instead
 # install pip3
@@ -20,6 +20,13 @@ chkconfig docker on
 yum -y install python3-pip
 # Upgrade pip
 pip3 install --upgrade pip3 ; pip3 install --upgrade pip
+
 # compose
 #pip install docker-compose
-pip3 install docker-compose
+#pip3 install docker-compose
+
+
+# compose - install via curl
+#curl -L https://github.com/docker/compose/releases/download/v2.7.0/docker-compose-$(uname -s)-$(uname -m) -o /usr/local/bin/docker-compose
+curl -L https://github.com/docker/compose/releases/download/v2.27.1/docker-compose-$(uname -s)-$(uname -m) -o /usr/local/bin/docker-compose
+chmod +x /usr/local/bin/docker-compose

@@ -1,0 +1,31 @@
+{
+  "name": "mysql-sink-connector",
+  "config": {
+    "connector.class": "io.confluent.connect.jdbc.JdbcSinkConnector",
+    "tasks.max": "1",
+    "topics": "bbb.db1.xxx",
+    "connection.url": "jdbc:mysql://mysql2:3306/db2?user=root&password=password",
+    "auto.create": "true",
+    "auto.evolve": "true",
+    "insert.mode": "upsert",
+    "pk.fields": "id",
+    "pk.mode": "record_key",
+    "delete.enabled": "true",
+    "key.converter": "io.confluent.connect.avro.AvroConverter",
+    "value.converter": "io.confluent.connect.avro.AvroConverter",
+    "key.converter.schema.registry.url": "http://schema-registry:8081",
+    "value.converter.schema.registry.url": "http://schema-registry:8081",
+    "transforms": "unwrap, routeTS",
+    "transforms.unwrap.type": "org.apache.kafka.connect.transforms.ExtractField$Value",
+    "transforms.unwrap.field": "after",
+    "field.name.adjustment.mode": "avro",
+    "value.converter.schemas.enable": "true",
+    "quote.sql.identifiers": "never",
+    "transforms.routeTS.type": "org.apache.kafka.connect.transforms.RegexRouter",
+    "transforms.routeTS.regex": "bbb\\.(db1)\\.(.+)",
+    "transforms.routeTS.replacement": "bbb_$1_$2"
+
+
+      }
+}
+

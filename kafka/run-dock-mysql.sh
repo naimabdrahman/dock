@@ -1,10 +1,27 @@
+## db1
 docker run \
 --detach \
---name=mysql-server \
+--name=mysql1 \
 --env="MYSQL_ROOT_PASSWORD=password" \
---publish 6603:3306 \
---volume=/data/mysql/dir:/var/lib/mysql \
+--publish 127.0.0.1:3306:3306 \
+--volume=/data/mysql1/dir:/var/lib/mysql \
+--restart=unless-stopped \
 mysql
+
+
+## db2
+docker run \
+--detach \
+--name=mysql2 \
+--env="MYSQL_ROOT_PASSWORD=password" \
+--publish 127.0.0.1:3307:3306 \
+--volume=/data/mysql2/dir:/var/lib/mysql \
+--restart=unless-stopped \
+mysql
+
+
+
+
 
 
 echo -e "
@@ -24,4 +41,6 @@ try this: mysqladmin -u root -ppassword password newpassword
 GRANT ALL PRIVILEGES ON *.* TO 'dba'@'%' WITH GRANT OPTION;
 FLUSH PRIVILEGES;
 
+login with ==> mysql -uroot -p<INSERT> -h127.0.0.1 -P3306
+login with ==> mysql -uroot -p<INSERT> -h127.0.0.1 -P3307
 "

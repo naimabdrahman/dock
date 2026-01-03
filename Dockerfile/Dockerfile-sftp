@@ -1,0 +1,16 @@
+version: "3.8"
+services:
+  sftp:
+    image: atmoz/sftp:latest
+    container_name: sftp-server
+    ports:
+      - "22:22"
+    volumes:
+      - ./data/upload:/home/upload
+      - ./data/alice:/home/alice/files
+      - ./data/bob:/home/bob/files
+    environment:
+      SFTP_USERS: |
+        upload:password1:1001
+        alice:alicepass:1002
+        bob:bobpass:1003

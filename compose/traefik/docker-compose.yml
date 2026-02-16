@@ -1,0 +1,72 @@
+version: "3.9"
+
+services:
+  traefik:
+    image: traefik:v3.0
+    container_name: traefik
+    command:
+      # Enable Traefik dashboard/API (insecure for lab use only)
+      - "--api.insecure=true"
+
+      # Enable Docker provider
+      - "--providers.docker=true"
+      - "--providers.docker.exposedbydefault=false"
+
+      # EntryPoint for HTTP
+      - "--entrypoints.web.address=:80"
+
+      # (Optional) decent logs for debugging
+      - "--log.level=INFO"
+      - "--accesslog=true"
+    ports:
+      # Traefik public entry (your requirement)
+      - "8080:80"
+      # Traefik dashboard (optional)
+      - "8085:8080"
+    volumes:
+      # Traefik watches Docker to discover containers + labels
+      - "/var/run/docker.sock:/var/run/docker.sock:ro"
+    networks:
+      - edge
+
+  sparta1:
+    image: naimar/ngxsparta1:1
+    container_name: sparta1
+    networks:
+      - edge
+    labels:
+      - "traefik.enable=true"
+
+      # Route: /sparta1 -> sparta1 service
+      - "traefik.http.routers.sparta1.rule=PathPrefix(`/sparta1`)"
+      - "traefik.http.routers.sparta1.entrypoints=web"
+
+      # Strip /sparta1 before sending to backend (so backend sees /)
+      - "traefik.http.middlewares.sparta1-stripprefix.stripprefix.prefixes=/sparta1"
+      - "traefik.http.routers.sparta1.middlewares=sparta1-stripprefix"
+
+      # Backend port inside container
+      - "traefik.http.services.sparta1.loadbalancer.server.port=80"
+
+  sparta2:
+    image: naimar/ngxsparta2:1
+    container_name: sparta2
+    networks:
+      - edge
+    labels:
+      - "traefik.enable=true"
+
+      # Route: /sparta2 -> sparta2 service
+      - "traefik.http.routers.sparta2.rule=PathPrefix(`/sparta2`)"
+      - "traefik.http.routers.sparta2.entrypoints=web"
+
+      # Strip /sparta2 before sending to backend
+      - "traefik.http.middlewares.sparta2-stripprefix.stripprefix.prefixes=/sparta2"
+      - "traefik.http.routers.sparta2.middlewares=sparta2-stripprefix"
+
+      # Backend port inside container
+      - "traefik.http.services.sparta2.loadbalancer.server.port=80"
+
+networks:
+  edge:
+    name: edge

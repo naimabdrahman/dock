@@ -21,12 +21,14 @@ yum -y install python3-pip
 # Upgrade pip
 pip3 install --upgrade pip3 ; pip3 install --upgrade pip
 
-# compose
+## compose
 #pip install docker-compose
 #pip3 install docker-compose
 
 
-# compose - install via curl
+## compose - install via curl
 #curl -L https://github.com/docker/compose/releases/download/v2.7.0/docker-compose-$(uname -s)-$(uname -m) -o /usr/local/bin/docker-compose
-curl -L https://github.com/docker/compose/releases/download/v2.27.1/docker-compose-$(uname -s)-$(uname -m) -o /usr/local/bin/docker-compose
+#curl -L https://github.com/docker/compose/releases/download/v2.27.1/docker-compose-$(uname -s)-$(uname -m) -o /usr/local/bin/docker-compose
+curl -L "https://github.com(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+
 chmod +x /usr/local/bin/docker-compose

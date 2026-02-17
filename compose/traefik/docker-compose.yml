@@ -2,7 +2,7 @@ version: "3.9"
 
 services:
   traefik:
-    image: traefik:v3.0
+    image: traefik:v3.6.1
     container_name: traefik
     command:
       # Enable Traefik dashboard/API (insecure for lab use only)

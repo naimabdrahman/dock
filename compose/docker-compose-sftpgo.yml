@@ -1,0 +1,14 @@
+version: "3.8"
+services:
+  sftpgo:
+    image: drakkan/sftpgo:latest
+    container_name: sftpgo
+    ports:
+      - "8080:8080"   # Web UI (client/admin depending on config)
+      - "2022:2022"   # SFTP (optional)
+    volumes:
+      - ./data:/srv/sftpgo/data
+      - ./home:/srv/sftpgo/home
+    environment:
+      - SFTPGO_HTTPD__BINDINGS__0__PORT=8080
+      - SFTPGO_SFTPD__BINDINGS__0__PORT=2022

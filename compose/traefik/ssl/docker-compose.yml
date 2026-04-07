@@ -1,0 +1,85 @@
+version: "3.9"
+
+services:
+  traefik:
+    image: traefik:v3.6.1
+    container_name: traefik
+    command:
+      # Dashboard/API (LAB only) - bound to localhost in ports
+      - "--api.insecure=true"
+
+      # Docker provider
+      - "--providers.docker=true"
+      - "--providers.docker.exposedbydefault=false"
+      - "--providers.docker.network=edge"
+      - "--providers.docker.endpoint=unix:///var/run/docker.sock"
+
+      # EntryPoints
+      - "--entrypoints.web.address=:80"
+      - "--entrypoints.websecure.address=:443"
+
+      # Redirect HTTP -> HTTPS
+      - "--entrypoints.web.http.redirections.entrypoint.to=websecure"
+      - "--entrypoints.web.http.redirections.entrypoint.scheme=https"
+
+      # Let's Encrypt (ACME) resolver
+      - "--certificatesresolvers.le.acme.email=admin@roketking.site"
+      - "--certificatesresolvers.le.acme.storage=/letsencrypt/acme.json"
+      - "--certificatesresolvers.le.acme.httpchallenge=true"
+      - "--certificatesresolvers.le.acme.httpchallenge.entrypoint=web"
+
+      # Logs
+      - "--log.level=INFO"
+      - "--accesslog=true"
+    ports:
+      - "80:80"
+      - "443:443"
+      # Dashboard only on localhost (avoid exposing to internet)
+      - "127.0.0.1:8080:8080"
+    volumes:
+      - "/var/run/docker.sock:/var/run/docker.sock:ro"
+      - "./letsencrypt:/letsencrypt"
+    networks:
+      - edge
+
+  sparta1:
+    image: naimar/ngxsparta1:1
+    container_name: sparta1
+    networks: [edge]
+    labels:
+      - "traefik.enable=true"
+
+      # HTTPS router: roketking.site/sparta1
+      - "traefik.http.routers.sparta1.rule=Host(`roketking.site`) && PathPrefix(`/sparta1`)"
+      - "traefik.http.routers.sparta1.entrypoints=websecure"
+      - "traefik.http.routers.sparta1.tls=true"
+      - "traefik.http.routers.sparta1.tls.certresolver=le"
+
+      # Strip /sparta1 for backend
+      - "traefik.http.middlewares.sparta1-stripprefix.stripprefix.prefixes=/sparta1"
+      - "traefik.http.routers.sparta1.middlewares=sparta1-stripprefix"
+
+      - "traefik.http.services.sparta1.loadbalancer.server.port=80"
+
+  sparta2:
+    image: naimar/ngxsparta2:1
+    container_name: sparta2
+    networks: [edge]
+    labels:
+      - "traefik.enable=true"
+
+      # HTTPS router: roketking.site/sparta2
+      - "traefik.http.routers.sparta2.rule=Host(`roketking.site`) && PathPrefix(`/sparta2`)"
+      - "traefik.http.routers.sparta2.entrypoints=websecure"
+      - "traefik.http.routers.sparta2.tls=true"
+      - "traefik.http.routers.sparta2.tls.certresolver=le"
+
+      # Strip /sparta2 for backend
+      - "traefik.http.middlewares.sparta2-stripprefix.stripprefix.prefixes=/sparta2"
+      - "traefik.http.routers.sparta2.middlewares=sparta2-stripprefix"
+
+      - "traefik.http.services.sparta2.loadbalancer.server.port=80"
+
+networks:
+  edge:
+    name: edge
